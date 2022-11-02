@@ -1,0 +1,8 @@
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\bin\Debug\Snake cli.exe.config
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\bin\Debug\Snake cli.exe
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\bin\Debug\Snake cli.pdb
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\obj\Debug\Snake cli.csproj.AssemblyReference.cache
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\obj\Debug\Snake cli.csproj.SuggestedBindingRedirects.cache
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\obj\Debug\Snake cli.csproj.CoreCompileInputs.cache
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\obj\Debug\Snake cli.exe
+C:\Users\feder\Documents\Compiti inf vac 2022\Folgio 1\Snake cli\Snake cli\obj\Debug\Snake cli.pdb
