@@ -14,34 +14,56 @@ namespace Snake_cli
         static void Main(string[] args)
         {
             Random random = new Random();
-            int x = 1, y = 1, x_punt = 0, y_punt = 0, snake_lenght = 1;
-            bool dead = false, verticl = false;
-            string tasto;
-
+            List<int> x = new List<int>(), y = new List<int>();
+            int x_punt = 0, y_punt = 0, snake_lenght = 1;
+            bool dead = false;
+            x.Add(1);
+            y.Add(1);
             x_punt = random.Next(0, 111);
             y_punt = random.Next(0, 16);
+            Console.CursorVisible = false;
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@".\Fart Sounds 1 hour.wav");
-            player.Play();
+            try
+            {
+                player.Play();
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("There no song in the same position as the program\nPress any key to continue");
+                Console.ReadKey();
+            }
             while (!dead)
             {
                 Thread.Sleep(10);
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.A:
-                        x--;
-                        verticl = false;
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            x[i + 1] = x[i];
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            y[i + 1] = y[i];
+                        x[0]--;
                         break;
                     case ConsoleKey.S:
-                        verticl = true;
-                        y++;
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            x[i + 1] = x[i];
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            y[i + 1] = y[i];
+                        y[0]++;
                         break;
                     case ConsoleKey.D:
-                        x++;
-                        verticl = false;
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            x[i + 1] = x[i];
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            y[i + 1] = y[i];
+                        x[0]++;
                         break;
                     case ConsoleKey.W:
-                        verticl = true;
-                        y--;
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            x[i + 1] = x[i];
+                        for (int i = 0; i < snake_lenght - 1; i++)
+                            y[i + 1] = y[i];
+                        y[0]--;
                         break;
                     default:
                         Console.WriteLine("ERORE");
@@ -52,44 +74,45 @@ namespace Snake_cli
                     ConsoleKeyInfo key = Console.ReadKey();
                 }
                 //Only allowed snake position higher than 0
-                if (x < 0 || x > Console.WindowWidth - 10)
+                if (x[0] < 0 || x[0] > Console.WindowWidth - 5)
                     break;
-                if (y < 0 || y > Console.WindowHeight - 10)
+                if (y[0] < 0 || y[0] > Console.WindowHeight - 5)
                     break;
 
                 Console.Clear();
                 //Apple generation and check
-                if ((x == x_punt) && (y == y_punt))
+                if ((x[0] == x_punt) && (y[0] == y_punt))
                 {
+                    x.Add(x[snake_lenght - 1]-1);
+                    y.Add(y[snake_lenght - 1]-1);
                     snake_lenght++;
-                    x_punt = random.Next(0, Console.WindowWidth - 10);
-                    y_punt = random.Next(0, Console.WindowHeight - 10);
+                    x_punt = random.Next(2, Console.WindowWidth - 5);
+                    y_punt = random.Next(2, Console.WindowHeight - 5);
                 }
 
                 //Printing the apple
-                for (int i = 0; i < y_punt; i++)
-                    Console.WriteLine("");
-                for (int i = 0; i < x_punt; i++)
-                    Console.Write(" ");
+                Console.SetCursorPosition(x_punt, y_punt);
                 Console.Write("O");
 
                 //Printing the snake
-                if (verticl)
+                for (int i = 0; i < snake_lenght; i++)
                 {
-                    for (int i = 0; i < snake_lenght; i++)
+                    if (i == 0)
                     {
-                        Console.SetCursorPosition(x, y + i);
-                        Console.Write("*");
+                        Console.SetCursorPosition(x[i], y[i]);
+                        Console.Write("°");
+                        continue;
                     }
+                    Console.SetCursorPosition(x[i], y[i]);
+                    Console.Write("*");
                 }
-                else
-                {
-                    Console.SetCursorPosition(x, y);
-                    for (int i = 0; i < snake_lenght; i++)
-                        Console.Write("*");
-                }
+            } 
+            Thread.Sleep(500);
+            //When you die :D
+            while (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
             }
-
             Console.Clear();
             string sei_morto = "Get good bro";
             barre();
