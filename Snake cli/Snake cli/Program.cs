@@ -20,7 +20,8 @@ namespace Snake_cli
 
             x_punt = random.Next(0, 111);
             y_punt = random.Next(0, 16);
-
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@".\Fart Sounds 1 hour.wav");
+            player.Play();
             while (!dead)
             {
                 Thread.Sleep(10);
