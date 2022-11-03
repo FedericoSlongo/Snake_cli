@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Snake_cli
@@ -13,33 +14,41 @@ namespace Snake_cli
         static void Main(string[] args)
         {
             Random random = new Random();
-            int x = 0, y = 0, x_punt = 0, y_punt = 0, snake_lenght = 1;
-            bool dead = false;
+            int x = 1, y = 1, x_punt = 0, y_punt = 0, snake_lenght = 1;
+            bool dead = false, verticl = false;
             string tasto;
-            Console.WriteLine("*");
+
             x_punt = random.Next(0, 111);
             y_punt = random.Next(0, 16);
 
             while (!dead)
             {
-                tasto = Console.ReadLine();
-                switch (tasto)
+                Thread.Sleep(10);
+                switch (Console.ReadKey().Key)
                 {
-                    case "a":
+                    case ConsoleKey.A:
                         x--;
+                        verticl = false;
                         break;
-                    case "s":
+                    case ConsoleKey.S:
+                        verticl = true;
                         y++;
                         break;
-                    case "d":
+                    case ConsoleKey.D:
                         x++;
+                        verticl = false;
                         break;
-                    case "w":
+                    case ConsoleKey.W:
+                        verticl = true;
                         y--;
                         break;
                     default:
                         Console.WriteLine("ERORE");
                         break;
+                }
+                while (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
                 }
                 //Only allowed snake position higher than 0
                 if (x < 0 || x > Console.WindowWidth - 10)
@@ -52,8 +61,8 @@ namespace Snake_cli
                 if ((x == x_punt) && (y == y_punt))
                 {
                     snake_lenght++;
-                    x_punt = random.Next(0, 111);
-                    y_punt = random.Next(0, 16);
+                    x_punt = random.Next(0, Console.WindowWidth - 10);
+                    y_punt = random.Next(0, Console.WindowHeight - 10);
                 }
 
                 //Printing the apple
@@ -64,10 +73,20 @@ namespace Snake_cli
                 Console.Write("O");
 
                 //Printing the snake
-                Console.SetCursorPosition(x, y);
-                for (int i = 0; i < snake_lenght; i++)
-                    Console.Write("*");
-                
+                if (verticl)
+                {
+                    for (int i = 0; i < snake_lenght; i++)
+                    {
+                        Console.SetCursorPosition(x, y + i);
+                        Console.Write("*");
+                    }
+                }
+                else
+                {
+                    Console.SetCursorPosition(x, y);
+                    for (int i = 0; i < snake_lenght; i++)
+                        Console.Write("*");
+                }
             }
 
             Console.Clear();
@@ -84,7 +103,7 @@ namespace Snake_cli
         }
         static void barre()
         {
-            for (int i = 0; i < Console.WindowWidth ; i++)
+            for (int i = 0; i < Console.WindowWidth; i++)
             {
                 Console.Write("*");
             }
